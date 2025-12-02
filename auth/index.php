@@ -3,7 +3,7 @@
 require_once 'User.php';
 require_once 'db.php';
 
-$dbHelper = new Dbhelper('localhost', 'root', '', 'salesdb');
+$dbHelper = new Dbhelper();
 $connection = $dbHelper->getConnection();
 
 
@@ -34,6 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($isAdded) {
             echo "User registered successfully.";
+            header("Location: login.php");
+            exit();
         } else {
             echo "Error registering user.";
         }
@@ -50,12 +52,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
     <?php if (!empty($isAdded)) echo "<h1>" . $isAdded . "</h1>" ?>
+
+    <nav>
+        <a href="index.php">Register</a>
+        <a href="login.php">Login</a>
+    </nav>
 
     <form action="" method="post">
         <input type="text" name="name" placeholder="Name">
