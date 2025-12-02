@@ -1,16 +1,18 @@
 <?php
 
 class User {
-    private ?int $user_id;
+    private ?int   $user_id;
     private string $name;
     private string $lastname;
+    private string $username;
     private string $tel;
     private string $pass;
 
-    public function __construct(?int $userId, string $Name, string $Lastname, string $Tel, string $Pass) {
+    public function __construct(?int $userId, string $Name, string $Lastname, string $Username, string $Tel, string $Pass) {
         $this->user_id = $userId;
         $this->name = $Name;
         $this->lastname = $Lastname;
+        $this->username = $Username;
         $this->tel = $Tel;
         $this->pass = $Pass;
     }
@@ -25,6 +27,10 @@ class User {
 
     public function getLastname(): string {
         return $this->lastname;
+    }
+
+    public function getUsername(): string {
+        return $this->username;
     }
 
     public function getTel(): string {

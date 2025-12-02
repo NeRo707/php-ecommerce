@@ -22,13 +22,19 @@ class Dbhelper {
         $this->connection->close();
     }
 
-    public function addUser($user){
-        
-        $query = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
+    public function addUser($user) {
+
+        $query = "INSERT INTO users (name, lastname, username, tel, pass) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->connection->prepare($query);
 
-        
-        $stmt->bind_param("sss", $user['username'], password_hash($user['password'], PASSWORD_BCRYPT), $user['email']);
+        $name = $user->getName();
+        $lastname = $user->getLastname();
+        $username = $user->getUsername();
+        $tel = $user->getTel();
+        $pass = $user->getPass();
+
+        $stmt->bind_param("sssss", $name, $lastname, $username, $tel, $pass);
         return $stmt->execute();
+        $this->closeConnection();
     }
 }
