@@ -6,15 +6,15 @@ class User {
     private string $lastname;
     private string $username;
     private string $tel;
-    private string $pass;
+    private string $password;
 
-    public function __construct(?int $userId, string $Name, string $Lastname, string $Username, string $Tel, string $Pass) {
+    public function __construct(?int $userId, string $Name, string $Lastname, string $Username, string $Tel, string $password) {
         $this->user_id = $userId;
         $this->name = $Name;
         $this->lastname = $Lastname;
         $this->username = $Username;
         $this->tel = $Tel;
-        $this->pass = $Pass;
+        $this->password = $password;
     }
 
     public function getUserId(): ?int {
@@ -37,8 +37,8 @@ class User {
         return $this->tel;
     }
 
-    public function getPass(): string {
-        return $this->pass;
+    public function getpassword(): string {
+        return $this->password;
     }
 
     public function setName(string $name): void {
@@ -53,7 +53,7 @@ class User {
         $this->tel = $tel;
     }
 
-    public function setPass(string $pass): void {
-        $this->pass = $pass;
+    public function setpassword(string $password): void {
+        $this->password = $password;
     }
 }

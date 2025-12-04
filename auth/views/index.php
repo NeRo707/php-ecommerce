@@ -1,7 +1,7 @@
 <?php
 
-require_once 'User.php';
-require_once 'db.php';
+require_once '../models/User.php';
+require_once '../core/db.php';
 
 $dbHelper = new Dbhelper();
 $connection = $dbHelper->getConnection();
@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             empty($_POST['name']) ||
             empty($_POST['lastname']) ||
             empty($_POST['tel']) ||
-            empty($_POST['pass']) ||
+            empty($_POST['password']) ||
             empty($_POST['username'])
         ) {
             die("All fields are required.");
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_POST['lastname'],
             $_POST['username'],
             $_POST['tel'],
-            $_POST['pass'],
+            password_hash($_POST['password'], PASSWORD_DEFAULT),
         );
 
         $isAdded = $dbHelper->addUser($user);
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="text" name="lastname" placeholder="Lastname">
         <input type="text" name="username" placeholder="Username">
         <input type="text" name="tel" placeholder="Telephone">
-        <input type="password" name="pass" placeholder="Password">
+        <input type="password" name="password" placeholder="password">
         <button type="submit" name="register">Register</button>
     </form>
 
