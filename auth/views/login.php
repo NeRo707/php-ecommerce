@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $isLoggedIn = $dbHelper->login($username, $password);
 
     if ($isLoggedIn) {
-      $user = $dbHelper->getUserByUsername($username);
+      $user = $dbHelper->get_user($username);
       $name = $user['name'];
       $lastname = $user['lastname'];
       $tel = $user['tel'];

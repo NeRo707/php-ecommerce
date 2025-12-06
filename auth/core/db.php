@@ -25,7 +25,7 @@ class Dbhelper {
         return $this->connection;
     }
 
-    public function addUser($user) {
+    public function add_user($user) {
 
         $query = "INSERT INTO users (name, lastname, username, tel, password) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->connection->prepare($query);
@@ -64,7 +64,7 @@ class Dbhelper {
         return false;
     }
 
-    public function getUserByUsername($username) {
+    public function get_user($username) {
         $query = "SELECT name, lastname, username, tel FROM users WHERE username = ?";
         $stmt = $this->connection->prepare($query);
         $stmt->bind_param("s", $username);
