@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             password_hash($_POST['password'], PASSWORD_DEFAULT),
         );
 
-        $isAdded = $dbHelper->addUser($user);
+        $isAdded = $dbHelper->add_user($user);
 
         if ($isAdded) {
             echo "User registered successfully.";
