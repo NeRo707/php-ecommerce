@@ -1,20 +1,17 @@
 <?php
 
-require_once '../controllers/LoginController.php';
-
-$controller = new LoginController();
+require_once '../app.php';
 
 // Handle logout
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {
-  $controller->logout();
+  $authController->logout();
 }
 
 // Handle login
-$controller->login();
+$authController->login();
 
 // Check if user is logged in
-$isLoggedIn = $controller->isUserLoggedIn();
-$userData = $controller->getUserData();
+$isLoggedIn = $authController->isUserLoggedIn();
 
 ?>
 
@@ -23,39 +20,28 @@ $userData = $controller->getUserData();
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="styless.css">
-</head>
+<?php 
+$name = "Login";
+include 'partials/header.php'; 
+?>
 
 <body>
   <?php include 'partials/navbar.php'; ?>
   <main>
-    <?php if (!empty($controller->message)): ?>
-      <p><?= $controller->message ?></p>
+    <?php if (!empty($authController->message)): ?>
+      <div class="message error"><?= $authController->message ?></div>
     <?php endif; ?>
 
     <?php if (!$isLoggedIn): ?>
       <form action="" method="post">
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="password" placeholder="Password">
-        <button type="submit" name="login">Login</button>
+        <h1>Login</h1>
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit" name="login">Sign In</button>
       </form>
-    <?php else: ?>
-      <div class="profile-card">
-        <h2>Welcome, <?= $userData['username'] ?></h2>
-
-        <div class="info">
-          <div><strong>Name:</strong> <?= $userData['name'] ?></div>
-          <div><strong>Last Name:</strong> <?= $userData['lastname'] ?></div>
-          <div><strong>Username:</strong> @<?= $userData['username'] ?></div>
-          <div><strong>Phone:</strong> <?= $userData['tel'] ?></div>
-        </div>
-
-        <a class="logout-btn" href="login.php?action=logout">Logout</a>
-      </div>
+    <?php else: 
+      Header("Location: profile.php");
+    ?>
     <?php endif; ?>
 
   </main>

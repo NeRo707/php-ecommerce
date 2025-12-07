@@ -1,18 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="styless.css">
-</head>
-<body>
-    <?php include 'partials/navbar.php'; ?>
+<?php
+$name = "Home";
+include 'partials/header.php';
+?>
 
-    <main>
-        <h1>Welcome to the Homepage</h1>
-        <p>This is the main page of the application.</p>
-        <a href="posts.php">View Posts</a>
-    </main>
+<body>
+  <?php include 'partials/navbar.php'; ?>
+
+  <main>
+    <section class="hero">
+      <h1>Welcome to X</h1>
+      <p>The best place to share your thoughts and connect with others. Join our community today!</p>
+
+      <div class="hero-actions">
+        <a href="posts.php" class="btn">View Posts</a>
+        <?php if (!isset($_SESSION['logged_in'])): ?>
+          <a href="register.php" class="btn btn-secondary">Get Started</a>
+        <?php else: ?>
+          <a href="create_post.php" class="btn btn-secondary">Create Post</a>
+        <?php endif; ?>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="feature-card">
+        <h3>Share Your Story</h3>
+        <p>Create posts and share your experiences with the community. Your voice matters here.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Connect with Others</h3>
+        <p>Read what others are saying and engage in meaningful conversations.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Secure & Private</h3>
+        <p>Your data is safe with us. We prioritize your privacy and security above all else.</p>
+      </div>
+    </section>
+  </main>
 </body>
+
 </html>

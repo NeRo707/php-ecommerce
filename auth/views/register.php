@@ -1,36 +1,42 @@
 <?php
 
-require_once '../controllers/RegisterController.php';
+require_once '../app.php';
 
-$controller = new RegisterController();
-$controller->register();
+$authController->register();
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styless.css">
-</head>
+<?php 
+$name = "Register";
+include 'partials/header.php'; 
+?>
 
 <body>
 
-    <?php if (!empty($controller->message)) echo "<p>" . htmlspecialchars($controller->message) . "</p>" ?>
+    <?php if (!empty($authController->message)) echo "<p>" . htmlspecialchars($authController->message) . "</p>" ?>
 
     <?php include 'partials/navbar.php'; ?>
 
-    <form action="" method="post">
-        <input type="text" name="name" placeholder="Name">
-        <input type="text" name="lastname" placeholder="Lastname">
-        <input type="text" name="username" placeholder="Username">
-        <input type="text" name="tel" placeholder="Telephone">
-        <input type="password" name="password" placeholder="password">
-        <button type="submit" name="register">Register</button>
-    </form>
+    <main>
+        <?php if (!empty($authController->message)): ?>
+            <div class="message <?= strpos($authController->message, 'Success') !== false ? 'success' : 'error' ?>">
+                <?= htmlspecialchars($authController->message) ?>
+            </div>
+        <?php endif; ?>
+
+        <form action="" method="post">
+            <h1>Register</h1>
+            <input type="text" name="name" placeholder="First Name" required>
+            <input type="text" name="lastname" placeholder="Last Name" required>
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="tel" name="tel" placeholder="Phone Number">
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit" name="register">Create Account</button>
+        </form>
+    </main>
 
 </body>
 
