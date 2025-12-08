@@ -1,4 +1,11 @@
-<?php require_once '../app.php'; ?>
+<?php require_once '../app.php'; 
+
+if (!$auth->isLoggedIn()) {
+  header('Location: login.php');
+  exit;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 

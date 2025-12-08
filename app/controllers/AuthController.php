@@ -53,12 +53,12 @@ class AuthController {
     exit();
   }
 
-  public function isUserLoggedIn() {
+  public function isLoggedIn() {
     return $this->isLoggedIn;
   }
 
   public function getUserData() {
-    if ($this->isUserLoggedIn()) {
+    if ($this->isLoggedIn()) {
       return $this->userData;
     }
     return null;

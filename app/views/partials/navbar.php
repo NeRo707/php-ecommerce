@@ -1,5 +1,5 @@
   <nav>
-    <?php if ($auth->isUserLoggedIn()): ?>
+    <?php if ($auth->isLoggedIn()): ?>
       <a href="secret.php">Secret</a>
       <a href="profile.php">Profile</a>
       <a href="login.php?action=logout">Logout</a>

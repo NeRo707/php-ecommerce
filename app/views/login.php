@@ -11,7 +11,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
 $auth->login();
 
 // Check if user is logged in
-$isLoggedIn = $auth->isUserLoggedIn();
+$isLoggedIn = $auth->isLoggedIn();
 
 if ($isLoggedIn) {
   header('Location: profile.php');
