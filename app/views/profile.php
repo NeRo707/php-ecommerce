@@ -13,16 +13,16 @@ if (!$isLoggedIn) {
   header('Location: login.php');
   exit();
 }
-$userData = $auth->getUserData();
+$user = $auth->getUser();
 
 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['change_name'])) {
   $newName = trim($_POST['newname']);
   if (!empty($newName)) {
-    $updateSuccess = $auth->changeName($userData['user_id'], $newName);
+    $updateSuccess = $auth->changeName($user->getUserId(), $newName);
     
     if ($updateSuccess) {
       $_SESSION['msg'] = "Name updated successfully.";
-      $userData = $auth->getUserData();
+      $user = $auth->getUser();
     } else {
       $_SESSION['msg'] = "<p style=\"color: red\">Failed to update name.<p>";
     }
@@ -35,23 +35,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['change_name'])) {
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="styless.css">
-</head>
+<?php $title="Profile"; include_once './partials/header.php'; ?>
 
 <body>
   <?php include_once './partials/navbar.php'; ?>
   <?= $auth->getMessage() ?>
   <div class="profile-card">
-    <h2>Welcome, <?= $userData['username'] ?></h2>
+    <h2>Welcome, <?= $user->getUsername() ?></h2>
     <div class="info">
-      <div><strong>Name:</strong> <?= $userData['name'] ?></div>
-      <div><strong>Last Name:</strong> <?= $userData['lastname'] ?></div>
-      <div><strong>Username:</strong> @<?= $userData['username'] ?></div>
-      <div><strong>Phone:</strong> <?= $userData['tel'] ?></div>
+      <div><strong>Name:</strong> <?= $user->getName() ?></div>
+      <div><strong>Last Name:</strong> <?= $user->getLastname() ?></div>
+      <div><strong>Username:</strong> @<?= $user->getUsername() ?></div>
+      <div><strong>Phone:</strong> <?= $user->getTel() ?></div>
     </div>
 
     <form action="" method="post">

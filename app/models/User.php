@@ -6,9 +6,9 @@ class User {
     private string $lastname;
     private string $username;
     private string $tel;
-    private string $password;
+    private ?string $password;
 
-    public function __construct(?int $userId, string $Name, string $Lastname, string $Username, string $Tel, string $password) {
+    public function __construct(?int $userId, string $Name, string $Lastname, string $Username, string $Tel, ?string $password = null) {
         $this->user_id = $userId;
         $this->name = $Name;
         $this->lastname = $Lastname;
@@ -37,7 +37,7 @@ class User {
         return $this->tel;
     }
 
-    public function getpassword(): string {
+    public function getpassword(): ?string {
         return $this->password;
     }
 

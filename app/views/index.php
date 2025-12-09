@@ -1,37 +1,12 @@
 <?php
 
 require_once '../app.php';
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
-  $auth->register();
-}
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="styless.css">
-</head>
-
+<?php $title="Home"; include_once './partials/header.php'; ?>
 <body>
-
-  <?php if (!empty($auth->getMessage())) echo "<p>" . htmlspecialchars($auth->getMessage()) . "</p>" ?>
-
   <?php include_once './partials/navbar.php'; ?>
-
-  <form action="" method="post">
-    <input type="text" name="name" placeholder="Name">
-    <input type="text" name="lastname" placeholder="Lastname">
-    <input type="text" name="username" placeholder="Username">
-    <input type="text" name="tel" placeholder="Telephone">
-    <input type="password" name="password" placeholder="password">
-    <button type="submit" name="register">Register</button>
-  </form>
-
+  <h1>Home</h1>
+  
 </body>
-
-</html>

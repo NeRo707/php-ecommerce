@@ -14,6 +14,10 @@ class AuthService extends Dbh {
     $tel = $user->getTel();
     $password = $user->getpassword();
 
+    if (empty($name) || empty($lastname) || empty($username) || empty($password)) {
+      throw new Exception("service: All fields are required.");
+    }
+
     $stmt->bind_param("sssss", $name, $lastname, $username, $tel, $password);
 
     $existingUser = $this->get_user($username);

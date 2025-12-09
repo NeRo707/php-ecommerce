@@ -4,7 +4,7 @@ require_once __DIR__ . '/../models/User.php';
 class AuthController {
 
   private $isLoggedIn = false;
-  private $userData = null;
+  private $user = null;
   protected $authService;
 
   public function __construct() {
@@ -12,9 +12,9 @@ class AuthController {
     if (session_status() === PHP_SESSION_NONE) {
       session_start();
     }
-    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && isset($_SESSION['user'])) {
       $this->isLoggedIn = true;
-      $this->userData = $_SESSION['user_data'];
+      $this->user = $_SESSION['user'];
     }
   }
 
@@ -30,9 +30,18 @@ class AuthController {
     $this->isLoggedIn = $this->authService->login($username, $password);
 
     if ($this->isLoggedIn) {
-      $this->userData = $this->authService->get_user($username);
+      $userData = $this->authService->get_user($username);
       $_SESSION['logged_in'] = true;
-      $_SESSION['user_data'] = $this->userData;
+      
+      $this->user = new User(
+        $userData['user_id'],
+        $userData['name'],
+        $userData['lastname'],
+        $userData['username'],
+        $userData['tel']
+      );
+      $_SESSION['user'] = $this->user;
+      
       $_SESSION['msg'] = "Login successful.";
       return true;
     } else {
@@ -54,15 +63,14 @@ class AuthController {
     return $this->isLoggedIn;
   }
 
-  public function getUserData() {
+  public function getUser() {
     if ($this->isLoggedIn()) {
-      return $this->userData;
+      return $this->user;
     }
     return null;
   }
 
   public function register() {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
       if (
         empty($_POST['name']) ||
         empty($_POST['lastname']) ||
@@ -98,9 +106,6 @@ class AuthController {
         $_SESSION['msg'] = "Error registering user.";
       }
       return $isAdded;
-    }
-
-    return false;
   }
 
   public function getMessage() {
@@ -125,8 +130,10 @@ class AuthController {
     if ($isUpdated) {
       $_SESSION['msg'] = "Name updated successfully.";
       // Update session user data
-      $this->userData['name'] = $newName;
-      $_SESSION['user_data'] = $this->userData;
+      if ($this->user) {
+        $this->user->setName($newName);
+        $_SESSION['user'] = $this->user;
+      }
       return true;
     } else {
       $_SESSION['msg'] = "Error updating name.";
