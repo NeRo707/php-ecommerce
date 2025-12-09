@@ -5,8 +5,9 @@ require_once '../app.php';
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {
   $auth->logout();
 }
-
-$auth->login();
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
+  $auth->login();
+}
 
 $isLoggedIn = $auth->isLoggedIn();
 

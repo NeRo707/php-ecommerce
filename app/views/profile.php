@@ -14,6 +14,22 @@ if (!$isLoggedIn) {
   exit();
 }
 $userData = $auth->getUserData();
+
+if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['change_name'])) {
+  $newName = trim($_POST['newname']);
+  if (!empty($newName)) {
+    $updateSuccess = $auth->changeName($userData['user_id'], $newName);
+    
+    if ($updateSuccess) {
+      $_SESSION['msg'] = "Name updated successfully.";
+      $userData = $auth->getUserData();
+    } else {
+      $_SESSION['msg'] = "<p style=\"color: red\">Failed to update name.<p>";
+    }
+  } else {
+    $_SESSION['msg'] = "Name cannot be empty.";
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +44,7 @@ $userData = $auth->getUserData();
 
 <body>
   <?php include_once './partials/navbar.php'; ?>
-  <p style="color: green; text-align: center;"><?= $auth->getMessage() ?></p>
+  <?= $auth->getMessage() ?>
   <div class="profile-card">
     <h2>Welcome, <?= $userData['username'] ?></h2>
     <div class="info">
@@ -37,6 +53,12 @@ $userData = $auth->getUserData();
       <div><strong>Username:</strong> @<?= $userData['username'] ?></div>
       <div><strong>Phone:</strong> <?= $userData['tel'] ?></div>
     </div>
+
+    <form action="" method="post">
+      <label for="newname"></label>
+      <input type="text" name="newname" id="newname" placeholder="New Name" required>
+      <button type="submit" name="change_name">Change Name</button>
+    </form>
 
   </div>
 </body>

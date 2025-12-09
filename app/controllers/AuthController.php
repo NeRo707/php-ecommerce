@@ -19,28 +19,25 @@ class AuthController {
   }
 
   public function login() {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
+    if (empty($_POST['username']) || empty($_POST['password'])) {
+      $_SESSION['msg'] = "All fields are required.";
+      return false;
+    }
 
-      if (empty($_POST['username']) || empty($_POST['password'])) {
-        $_SESSION['msg'] = "All fields are required.";
-        return false;
-      }
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-      $username = $_POST['username'];
-      $password = $_POST['password'];
+    $this->isLoggedIn = $this->authService->login($username, $password);
 
-      $this->isLoggedIn = $this->authService->login($username, $password);
-
-      if ($this->isLoggedIn) {
-        $this->userData = $this->authService->get_user($username);
-        $_SESSION['logged_in'] = true;
-        $_SESSION['user_data'] = $this->userData;
-        $_SESSION['msg'] = "Login successful.";
-        return true;
-      } else {
-        $_SESSION['msg'] = "Invalid username or password.";
-        return false;
-      }
+    if ($this->isLoggedIn) {
+      $this->userData = $this->authService->get_user($username);
+      $_SESSION['logged_in'] = true;
+      $_SESSION['user_data'] = $this->userData;
+      $_SESSION['msg'] = "Login successful.";
+      return true;
+    } else {
+      $_SESSION['msg'] = "Invalid username or password.";
+      return false;
     }
 
     return false;
@@ -66,7 +63,6 @@ class AuthController {
 
   public function register() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
-
       if (
         empty($_POST['name']) ||
         empty($_POST['lastname']) ||
@@ -101,7 +97,6 @@ class AuthController {
       } else {
         $_SESSION['msg'] = "Error registering user.";
       }
-
       return $isAdded;
     }
 
@@ -115,5 +110,27 @@ class AuthController {
       return $message;
     }
     return '';
+  }
+
+  public function changeName($user_id) {
+    if (empty($_POST['newname'])) {
+      $_SESSION['msg'] = "Name and Lastname fields are required.";
+      return false;
+    }
+
+    $newName = $_POST['newname'];
+
+    $isUpdated = $this->authService->update_name($user_id, $newName);
+
+    if ($isUpdated) {
+      $_SESSION['msg'] = "Name updated successfully.";
+      // Update session user data
+      $this->userData['name'] = $newName;
+      $_SESSION['user_data'] = $this->userData;
+      return true;
+    } else {
+      $_SESSION['msg'] = "Error updating name.";
+      return false;
+    }
   }
 }

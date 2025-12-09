@@ -1,5 +1,11 @@
 /* Reset some default styles */
-body, h1, form, input, button, nav, a {
+body,
+h1,
+form,
+input,
+button,
+nav,
+a {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -48,7 +54,7 @@ form {
     background: #fff;
     padding: 32px 28px;
     border-radius: 8px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
     display: flex;
     flex-direction: column;
     gap: 16px;
