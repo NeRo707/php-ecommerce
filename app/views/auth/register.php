@@ -1,6 +1,6 @@
 <?php
 
-require_once '../app.php';
+require_once '../../app.php';
 
 $authController->register();
 
@@ -11,14 +11,14 @@ $authController->register();
 
 <?php 
 $name = "Register";
-include 'partials/header.php'; 
+include '../_partials/header.php'; 
 ?>
 
 <body>
 
     <?php if (!empty($authController->message)) echo "<p>" . htmlspecialchars($authController->message) . "</p>" ?>
 
-    <?php include 'partials/navbar.php'; ?>
+    <?php include '../_partials/navbar.php'; ?>
 
     <main>
         <?php if (!empty($authController->message)): ?>

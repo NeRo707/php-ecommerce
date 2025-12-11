@@ -1,6 +1,6 @@
 <?php
 
-require_once '../app.php';
+require_once '../../app.php';
 
 // Handle logout
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {
@@ -22,11 +22,11 @@ $isLoggedIn = $authController->isUserLoggedIn();
 
 <?php 
 $name = "Login";
-include 'partials/header.php'; 
+include_once '../_partials/header.php'; 
 ?>
 
 <body>
-  <?php include 'partials/navbar.php'; ?>
+  <?php include_once '../_partials/navbar.php'; ?>
   <main>
     <?php if (!empty($authController->message)): ?>
       <div class="message error"><?= $authController->message ?></div>
@@ -40,7 +40,7 @@ include 'partials/header.php';
         <button type="submit" name="login">Sign In</button>
       </form>
     <?php else: 
-      Header("Location: profile.php");
+      Header("Location: ../dashboard/profile.php");
     ?>
     <?php endif; ?>
 

@@ -1,5 +1,5 @@
 <?php
-require_once '../app.php';
+require_once '../../app.php';
 
 $postController->handleRequest();
 ?>
@@ -8,10 +8,10 @@ $postController->handleRequest();
 <html lang="en">
 <?php 
 $name = "Create Post";
-include 'partials/header.php'; 
+include '../_partials/header.php'; 
 ?>
 <body>
-    <?php include 'partials/navbar.php'; ?>
+  <?php include '../_partials/navbar.php'; ?>
 
     <main>
         <h1>Create a New Post</h1>

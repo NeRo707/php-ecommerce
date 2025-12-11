@@ -1,5 +1,5 @@
 <?php
-require_once '../app.php';
+require_once '../../app.php';
 $post = $postController->getPost($_GET['id'] ?? null);
 
 if (!$post) {
@@ -12,11 +12,11 @@ if (!$post) {
 <html lang="en">
 <?php
 $name = "Post - " . $post['title'];
-include 'partials/header.php';
+include '../_partials/header.php';
 ?>
 
 <body>
-  <?php include 'partials/navbar.php'; ?>
+  <?php include '../_partials/navbar.php'; ?>
   <main>
     <div class="single-post-container">
         <a href="posts.php" class="back-link">

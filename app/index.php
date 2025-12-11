@@ -1,3 +1,3 @@
 <?php
-Header('Location: /home');
-?>
+header("Location: views/index.php");
+exit();

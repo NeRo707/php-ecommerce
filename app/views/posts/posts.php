@@ -1,5 +1,5 @@
 <?php
-require_once '../app.php';
+require_once '../../app.php';
 
 $postController->getPosts();
 ?>
@@ -8,11 +8,11 @@ $postController->getPosts();
 <html lang="en">
 <?php
 $name = "Posts";
-include 'partials/header.php';
+include '../_partials/header.php';
 ?>
 
 <body>
-  <?php include 'partials/navbar.php'; ?>
+  <?php include '../_partials/navbar.php'; ?>
 
   <main>
     <h1>Community Posts</h1>

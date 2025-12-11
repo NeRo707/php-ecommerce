@@ -1,5 +1,5 @@
 <?php
-require_once '../app.php';
+require_once __DIR__ . '/../../app.php';
 
 $userData = $authController->getUserData();
 $userPosts = $postController->getUserPosts();
@@ -7,8 +7,8 @@ $userPosts = $postController->getUserPosts();
 
 <?php
 $name = "Profile - " . $userData['username'];
-include 'partials/header.php';
-include 'partials/navbar.php';
+include '../_partials/header.php';
+include '../_partials/navbar.php';
 ?>
 <main>
   <div class="profile-wrap">
@@ -29,7 +29,7 @@ include 'partials/navbar.php';
       <?php else: ?>
         <ul>
           <?php foreach ($userPosts as $post): ?>
-            <a href=post.php?id=<?= $post['post_id'] ?>>
+            <a href=../posts/post.php?id=<?= $post['post_id'] ?>>
               <li>
                 <h4><?= $post['title'] ?></h4>
                 <p><?= $post['content'] ?></p>

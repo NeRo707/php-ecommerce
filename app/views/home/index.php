@@ -2,23 +2,22 @@
 <html lang="en">
 <?php
 $name = "Home";
-include 'partials/header.php';
+include '../_partials/header.php';
 ?>
 
 <body>
-  <?php include 'partials/navbar.php'; ?>
-
+  <?php include '../_partials/navbar.php'; ?>
   <main>
     <section class="hero">
       <h1>Welcome to X</h1>
       <p>The best place to share your thoughts and connect with others. Join our community today!</p>
 
       <div class="hero-actions">
-        <a href="posts.php" class="btn">View Posts</a>
+        <a href="../posts/posts.php" class="btn">View Posts</a>
         <?php if (!isset($_SESSION['logged_in'])): ?>
-          <a href="register.php" class="btn btn-secondary">Get Started</a>
+          <a href="../auth/register.php" class="btn btn-secondary">Get Started</a>
         <?php else: ?>
-          <a href="create_post.php" class="btn btn-secondary">Create Post</a>
+          <a href="../posts/create_post.php" class="btn btn-secondary">Create Post</a>
         <?php endif; ?>
       </div>
     </section>
