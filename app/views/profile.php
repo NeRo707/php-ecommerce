@@ -15,19 +15,38 @@ if (!$isLoggedIn) {
 }
 $user = $auth->getUser();
 
-if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['change_name'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
+  
+  $newUserName = trim($_POST['newusername']);
   $newName = trim($_POST['newname']);
-  if (!empty($newName)) {
-    $updateSuccess = $auth->changeName($user->getUserId(), $newName);
-    
+  $newLastName = trim($_POST['newlastname']);
+  $newTel = trim($_POST['newtel']);
+
+  $valid = !empty($newUserName) && !empty($newName) && !empty($newLastName) && !empty($newTel);
+
+  if ($valid) {
+    $newData = [
+      'username' => $newUserName,
+      'name' => $newName,
+      'lastname' => $newLastName,
+      'tel' => $newTel
+    ];
+
+    try {
+      $updateSuccess = $auth->updateProfile($user->getUserId(), $newData);
+    } catch (\Throwable $th) {
+      $_SESSION['msg'] = "Error: " . $th->getMessage();
+      $updateSuccess = false;
+    }
+
     if ($updateSuccess) {
-      $_SESSION['msg'] = "Name updated successfully.";
+      $_SESSION['msg'] = "Profile updated successfully.";
       $user = $auth->getUser();
     } else {
-      $_SESSION['msg'] = "<p style=\"color: red\">Failed to update name.<p>";
+      $_SESSION['msg'] = "<p style=\"color: red\">Failed to update profile.<p>" . $th->getMessage();
     }
   } else {
-    $_SESSION['msg'] = "Name cannot be empty.";
+    $_SESSION['msg'] = "All fields are required.";
   }
 }
 ?>
@@ -35,7 +54,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['change_name'])) {
 <!DOCTYPE html>
 <html lang="en">
 
-<?php $title="Profile"; include_once './partials/header.php'; ?>
+<?php $title = "Profile";
+include_once './partials/header.php'; ?>
 
 <body>
   <?php include_once './partials/navbar.php'; ?>
@@ -49,13 +69,30 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['change_name'])) {
       <div><strong>Phone:</strong> <?= $user->getTel() ?></div>
     </div>
 
-    <form action="" method="post">
-      <label for="newname"></label>
-      <input type="text" name="newname" id="newname" placeholder="New Name" required>
-      <button type="submit" name="change_name">Change Name</button>
+    <button id="editProfileBtn">Edit Profile</button>
+
+    <form action="" method="post" id="editProfileForm" style="display: none; flex-direction: column; gap: 10px;">
+      <input type="text" name="newusername" value="<?= $user->getUsername() ?>">
+      <input type="text" name="newname" id="newname" placeholder="New Name" value="<?= ($user->getName()) ?>">
+      <input type="text" name="newlastname" id="newlastname" placeholder="New Last Name" value="<?= ($user->getLastname()) ?>">
+      <input type="text" name="newtel" id="newtel" placeholder="New Telephone" value="<?= ($user->getTel()) ?>">
+      <input type="submit" name="update_profile" value="Change Name">
     </form>
 
   </div>
 </body>
+
+<script>
+  const $editBtn = document.getElementById('editProfileBtn');
+
+  $editBtn.addEventListener('click', () => {
+    const $form = document.getElementById('editProfileForm');
+    if ($form.style.display === 'none') {
+      $form.style.display = 'flex';
+    } else {
+      $form.style.display = 'none';
+    }
+  });
+</script>
 
 </html>

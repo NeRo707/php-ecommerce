@@ -69,10 +69,16 @@ class AuthService extends Dbh {
     return null;
   }
 
-  public function update_name($user_id, $newName) {
-    $query = "UPDATE users SET name = ? WHERE user_id = ?";
+  public function update_user($user_id, $newData) {
+
+    $newName = $newData['name'];
+    $newLastName = $newData['lastname'];
+    $newUserName = $newData['username'];
+    $newTel = $newData['tel'];
+
+    $query = "UPDATE users SET name = ?, lastname = ?, username = ?, tel = ? WHERE user_id = ?";
     $stmt = $this->connection->prepare($query);
-    $stmt->bind_param("si", $newName, $user_id);
+    $stmt->bind_param("ssssi", $newName, $newLastName, $newUserName, $newTel, $user_id);
     $result = $stmt->execute();
     $stmt->close();
     return $result;

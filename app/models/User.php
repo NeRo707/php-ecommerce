@@ -40,6 +40,10 @@ class User {
     public function getpassword(): ?string {
         return $this->password;
     }
+    
+    public function setUsername(string $username): void {
+        $this->username = $username;
+    }
 
     public function setName(string $name): void {
         $this->name = $name;

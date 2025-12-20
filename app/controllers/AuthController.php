@@ -32,7 +32,7 @@ class AuthController {
     if ($this->isLoggedIn) {
       $userData = $this->authService->get_user($username);
       $_SESSION['logged_in'] = true;
-      
+
       $this->user = new User(
         $userData['user_id'],
         $userData['name'],
@@ -41,7 +41,7 @@ class AuthController {
         $userData['tel']
       );
       $_SESSION['user'] = $this->user;
-      
+
       $_SESSION['msg'] = "Login successful.";
       return true;
     } else {
@@ -71,41 +71,41 @@ class AuthController {
   }
 
   public function register() {
-      if (
-        empty($_POST['name']) ||
-        empty($_POST['lastname']) ||
-        empty($_POST['tel']) ||
-        empty($_POST['password']) ||
-        empty($_POST['username'])
-      ) {
-        $_SESSION['msg'] = "All fields are required.";
-        return false;
-      }
+    if (
+      empty($_POST['name']) ||
+      empty($_POST['lastname']) ||
+      empty($_POST['tel']) ||
+      empty($_POST['password']) ||
+      empty($_POST['username'])
+    ) {
+      $_SESSION['msg'] = "All fields are required.";
+      return false;
+    }
 
-      $user = new User(
-        null,
-        $_POST['name'],
-        $_POST['lastname'],
-        $_POST['username'],
-        $_POST['tel'],
-        password_hash($_POST['password'], PASSWORD_DEFAULT)
-      );
+    $user = new User(
+      null,
+      $_POST['name'],
+      $_POST['lastname'],
+      $_POST['username'],
+      $_POST['tel'],
+      password_hash($_POST['password'], PASSWORD_DEFAULT)
+    );
 
-      try {
-        $isAdded = $this->authService->add_user($user);
-      } catch (\Throwable $th) {
-        $_SESSION['msg'] = "Error: " . $th->getMessage();
-        return false;
-      }
+    try {
+      $isAdded = $this->authService->add_user($user);
+    } catch (\Throwable $th) {
+      $_SESSION['msg'] = "Error: " . $th->getMessage();
+      return false;
+    }
 
-      if ($isAdded) {
-        $_SESSION['msg'] = "User registered successfully.";
-        header("Location: login.php");
-        exit();
-      } else {
-        $_SESSION['msg'] = "Error registering user.";
-      }
-      return $isAdded;
+    if ($isAdded) {
+      $_SESSION['msg'] = "User registered successfully.";
+      header("Location: login.php");
+      exit();
+    } else {
+      $_SESSION['msg'] = "Error registering user.";
+    }
+    return $isAdded;
   }
 
   public function getMessage() {
@@ -117,21 +117,27 @@ class AuthController {
     return '';
   }
 
-  public function changeName($user_id) {
-    if (empty($_POST['newname'])) {
-      $_SESSION['msg'] = "Name and Lastname fields are required.";
+  public function updateProfile($user_id, $newData) {
+    if (empty($_POST['update_profile'])) {
+      $_SESSION['msg'] = "No data to update.";
       return false;
     }
 
-    $newName = $_POST['newname'];
+    if( empty($newData['username']) || empty($newData['name']) || empty($newData['lastname']) || empty($newData['tel']) ) {
+      $_SESSION['msg'] = "All fields are required.";
+      return false;
+    }
 
-    $isUpdated = $this->authService->update_name($user_id, $newName);
+    $isUpdated = $this->authService->update_user($user_id, $newData);
 
     if ($isUpdated) {
       $_SESSION['msg'] = "Name updated successfully.";
       // Update session user data
       if ($this->user) {
-        $this->user->setName($newName);
+        $this->user->setName($newData['name']);
+        $this->user->setLastname($newData['lastname']);
+        $this->user->setUsername($newData['username']);
+        $this->user->setTel($newData['tel']);
         $_SESSION['user'] = $this->user;
       }
       return true;
