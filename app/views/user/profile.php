@@ -1,6 +1,6 @@
 <?php
 
-require_once '../app.php';
+require_once '../../app.php';
 
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {
   $auth->logout();
@@ -55,15 +55,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
 <html lang="en">
 
 <?php $title = "Profile";
-include_once './partials/header.php'; ?>
+include_once '../_partials/header.php'; ?>
 
 <body>
-  <?php include_once './partials/navbar.php'; ?>
+  <?php include_once '../_partials/navbar.php'; ?>
   <?= $auth->getMessage() ?>
   <div class="profile-card">
     <h2>Welcome, <?= $user->getUsername() ?></h2>
     <div class="info">
-      <div><strong>Name:</strong> <?= $user->getName() ?></div>
+      <div><strong>Nasdasame:</strong> <?= $user->getName() ?></div>
       <div><strong>Last Name:</strong> <?= $user->getLastname() ?></div>
       <div><strong>Username:</strong> @<?= $user->getUsername() ?></div>
       <div><strong>Phone:</strong> <?= $user->getTel() ?></div>

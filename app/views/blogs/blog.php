@@ -1,5 +1,5 @@
 <?php
-require_once '../app.php';
+require_once '../../app.php';
 
 if (!$auth->isLoggedIn()) {
   header('Location: login.php');
@@ -16,10 +16,10 @@ if (!$auth->isLoggedIn()) {
 <html lang="en">
 
 <?php $title = "Blogs";
-include_once './partials/header.php'; ?>
+include_once '../_partials/header.php'; ?>
 
 <body>
-  <?php include_once 'partials/navbar.php'; ?>
+  <?php include_once '../_partials/navbar.php'; ?>
   <h1>Blogs Page</h1>
   <a href="blogs.php">Back to Blogs</a>
 

@@ -1,5 +1,5 @@
 <?php
-require_once '../app.php';
+require_once '../../app.php';
 if (!$auth->isLoggedIn()) {
     header('Location: login.php');
     exit;
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!DOCTYPE html>
 <html lang="en">
 
-<?php $title="New Blog"; include_once './partials/header.php'; ?>
+<?php $title="New Blog"; include_once '../_partials/header.php'; ?>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </style>
 
 <body>
-    <?php include_once 'partials/navbar.php'; ?>
+    <?php include_once '../_partials/navbar.php'; ?>
     <h1>Create new Blog</h1>
 
     <form action="" method="post">
