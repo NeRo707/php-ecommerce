@@ -21,13 +21,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['hack'])) {
     $hackResult = [
       'success' => true,
       'amount' => $amount,
-      'message' => "ACCESS GRANTED! You successfully extracted $$amount from Pentagon's secret budget!"
+      'message' => "ACCESS GRANTED. $$amount stolen from Pentagon"
     ];
   } else {
     $hackResult = [
       'success' => false,
       'amount' => 0,
-      'message' => "FIREWALL DETECTED! The Pentagon's cyber defense blocked your attack. Try again!"
+      'message' => "FIREWALL. The Pentagon blocked attack. try again"
     ];
   }
 }
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['hack'])) {
 if (isset($_GET['clear']) && $_GET['clear'] === 'true') {
   $auth->clearBalance();
   $currentBalance = $auth->getBalance();
-  header('Location: balance.php');
+  header('Location: balance');
   exit();
 }
 
@@ -56,7 +56,7 @@ include_once '../_partials/header.php'; ?>
     <div class="balance-card">
       <div class="balance-label">Current Balance</div>
       <div class="balance-amount">$<?= $currentBalance ?></div>
-      <a href="../items/shop.php" class="btn btn-primary">Go Shopping</a>
+      <a href="../items/shop" class="btn btn-primary">Go Shopping</a>
       <a onclick="window.location.href='?clear=true'" class="btn btn-primary">Clear Balance</a>
     </div>
 

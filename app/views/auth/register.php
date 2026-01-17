@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 $isLoggedIn = $auth->isLoggedIn();
 
 if ($isLoggedIn) {
-  header('Location: ../user/profile.php');
+  header('Location: ../user/profile');
   exit();
 }
 
@@ -43,7 +43,7 @@ include_once '../_partials/header.php'; ?>
       <input type="password" name="password" placeholder="Password" required>
       <button type="submit" name="register">Register</button>
       <p style="text-align: center; margin-top: 15px;">
-        Already have an account? <a href="login.php">Login</a>
+        Already have an account? <a href="login">Login</a>
       </p>
     </form>
   </main>

@@ -3,7 +3,7 @@
 require_once '../../app.php';
 
 if (!$auth->isLoggedIn()) {
-  header('Location: ../auth/login.php');
+  header('Location: ../auth/login');
   exit();
 }
 
@@ -38,7 +38,7 @@ include_once '../_partials/header.php'; ?>
         <div class="cart-empty">
           <h3>No orders yet</h3>
           <br>
-          <a href="../items/shop.php" class="btn btn-primary">Start Shopping</a>
+          <a href="../items/shop" class="btn btn-primary">Start Shopping</a>
         </div>
       </div>
     <?php else: ?>
@@ -61,7 +61,7 @@ include_once '../_partials/header.php'; ?>
       </div>
 
       <br>
-      <a href="../items/shop.php" class="btn btn-primary">Continue Shopping</a>
+      <a href="../items/shop" class="btn btn-primary">Continue Shopping</a>
     <?php endif; ?>
   </main>
 </body>

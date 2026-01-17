@@ -3,13 +3,13 @@
 require_once '../../app.php';
 
 if (!$auth->isLoggedIn()) {
-  header('Location: ../auth/login.php');
+  header('Location: ../auth/login');
   exit();
 }
 
 $user = $auth->getUser();
-if ($user->getEmail() !== 'admin@gmail.com') {
-  header('Location: ../items/shop.php');
+if ($user->getRole() !== 'admin') {
+  header('Location: ../notfound');
   exit();
 }
 
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
   if (in_array($status, ['pending', 'completed', 'cancelled'])) {
     $cart->updateOrderStatus($order_id, $status);
   }
-  header('Location: orders.php');
+  header('Location: orders');
   exit();
 }
 

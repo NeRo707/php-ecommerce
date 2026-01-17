@@ -1,14 +1,14 @@
 <?php
 require_once '../../app.php';
 if (!$auth->isLoggedIn()) {
-    header('Location: login.php');
+    header('Location: login');
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = $blogs->createBlog();
     if ($result) {
-        header('Location: blogs.php');
+        header('Location: blogs');
         exit;
     } else {
         echo "<p style='color:red;'>Failed to create blog. Please try again.</p>";

@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 $isLoggedIn = $auth->isLoggedIn();
 
 if ($isLoggedIn) {
-  header('Location: ../user/profile.php');
+  header('Location: ../user/profile');
   exit();
 }
 

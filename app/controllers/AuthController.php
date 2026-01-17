@@ -69,7 +69,7 @@ class AuthController {
       session_start();
     }
     session_destroy();
-    header("Location: login.php");
+    header("Location: login");
     exit();
   }
 
@@ -146,7 +146,7 @@ class AuthController {
 
     if ($isAdded) {
       $_SESSION['res'] = "Registration successful. Please login.";
-      header("Location: login.php");
+      header("Location: login");
       exit();
     } else {
       $_SESSION['res'] = "Registration failed.";

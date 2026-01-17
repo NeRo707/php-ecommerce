@@ -8,7 +8,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
   if ($auth->login()) {
-    header('Location: ../user/profile.php');
+    header('Location: ../user/profile');
     exit();
   } else {
     header('Location: login');
@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 $isLoggedIn = $auth->isLoggedIn();
 
 if ($isLoggedIn) {
-  header('Location: ../user/profile.php');
+  header('Location: ../user/profile');
   exit();
 }
 
@@ -50,7 +50,7 @@ include_once '../_partials/header.php'; ?>
       <input type="password" name="password" placeholder="Password" required>
       <button type="submit" name="login">Login</button>
       <p style="text-align: center; margin-top: 15px;">
-        Don't have an account? <a href="register.php">Register</a>
+        Don't have an account? <a href="register">Register</a>
       </p>
     </form>
   </main>

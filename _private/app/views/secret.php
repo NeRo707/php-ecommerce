@@ -1,7 +1,7 @@
 <?php require_once '../app.php';
 
 if (!$auth->isLoggedIn()) {
-  header('Location: auth/login.php');
+  header('Location: auth/login');
   exit;
 }
 

@@ -15,27 +15,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $item_id = $_POST['item_id'];
     $quantity = $_POST['quantity'];
     $cart->updateQuantity($item_id, $quantity);
-    header('Location: cart.php');
+    header('Location: cart');
     exit();
   }
 
   if (isset($_POST['remove_item'])) {
     $item_id = $_POST['item_id'];
     $cart->removeFromCart($item_id);
-    header('Location: cart.php');
+    header('Location: cart');
     exit();
   }
 
   if (isset($_POST['clear_cart'])) {
     $cart->clearCart();
-    header('Location: cart.php');
+    header('Location: cart');
     exit();
   }
 
   if (isset($_POST['checkout'])) {
     $order_id = $cart->checkout($user_id);
     if ($order_id) {
-      header('Location: orders.php');
+      header('Location: orders');
       exit();
     }
   }
@@ -72,7 +72,7 @@ include_once '../_partials/header.php'; ?>
         <div class="cart-empty">
           <h1>CART EMPTY</h1>
           <br>
-          <a href="../items/shop.php" class="btn btn-primary">Start Shopping</a>
+          <a href="../items/shop" class="btn btn-primary">Start Shopping</a>
         </div>
       </div>
     <?php else: ?>
@@ -123,7 +123,7 @@ include_once '../_partials/header.php'; ?>
           <br>
           <form action="" method="post">
             <button type="submit" name="checkout" class="btn btn-success" style="margin-bottom: 1rem; padding:1rem; width: 20rem">Checkout</button>
-            <a href="../items/shop.php" class="btn btn-primary">Continue Shopping</a>
+            <a href="../items/shop" class="btn btn-primary">Continue Shopping</a>
           </form>
         </div>
       </div>

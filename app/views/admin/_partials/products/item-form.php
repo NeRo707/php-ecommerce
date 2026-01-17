@@ -36,7 +36,7 @@
 
   <?php if ($editingItem): ?>
     <button type="submit" name="update_item" class="btn btn-primary" style="margin-bottom: 0.5rem; padding:1rem;">Update Item</button>
-    <a href="products.php" class="btn btn-secondary">Cancel</a>
+    <a href="products" class="btn btn-secondary">Cancel</a>
   <?php else: ?>
     <button type="submit" name="add_item" class="btn btn-success">Add Item</button>
   <?php endif; ?>

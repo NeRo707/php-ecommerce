@@ -3,13 +3,13 @@
 require_once '../../app.php';
 
 if (!$auth->isLoggedIn()) {
-  header('Location: ../auth/login.php');
+  header('Location: ../auth/login');
   exit();
 }
 
 $user = $auth->getUser();
-if ($user->getEmail() !== 'admin@gmail.com') {
-  header('Location: ../items/shop.php');
+if ($user->getRole() !== 'admin') {
+  header('Location: ../notfound');
   exit();
 }
 
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_item'])) {
   if (!empty($name) && $price > 0 && $stock >= 0) {
     $items->addItem($name, $description, $price, $stock, $image);
   }
-  header('Location: products.php');
+  header('Location: products');
   exit();
 }
 
@@ -38,14 +38,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_item'])) {
   if (!empty($name) && $price > 0 && $stock >= 0) {
     $items->updateItem($item_id, $name, $description, $price, $stock, $image);
   }
-  header('Location: products.php');
+  header('Location: products');
   exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_item'])) {
   $item_id = $_POST['item_id'];
   $items->deleteItem($item_id);
-  header('Location: products.php');
+  header('Location: products');
   exit();
 }
 

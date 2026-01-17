@@ -19,13 +19,13 @@ include_once './_partials/header.php'; ?>
     <?php if ($auth->isLoggedIn()): ?>
       <p>Hello, <strong><?= $auth->getUser()->getName() ?></strong>! Ready to shop?</p>
       <br>
-      <a href="items/shop.php" class="btn btn-primary">Browse Products</a>
-      <a href="cart/cart.php" class="btn btn-success">View Cart</a>
+      <a href="items/shop" class="btn btn-primary">Browse Products</a>
+      <a href="cart/cart" class="btn btn-success">View Cart</a>
     <?php else: ?>
       <p>login or register to start shopping.</p>
       <br>
-      <a href="auth/login.php" class="btn btn-primary">Login</a>
-      <a href="auth/register.php" class="btn btn-success">Register</a>
+      <a href="auth/login" class="btn btn-primary">Login</a>
+      <a href="auth/register" class="btn btn-success">Register</a>
     <?php endif; ?>
   </main>
 </body>

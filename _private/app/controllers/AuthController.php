@@ -55,7 +55,7 @@ class AuthController {
   public function logout() {
     session_start();
     session_destroy();
-    header("Location: login.php");
+    header("Location: login");
     exit();
   }
 
@@ -100,7 +100,7 @@ class AuthController {
 
     if ($isAdded) {
       $_SESSION['msg'] = "User registered successfully.";
-      header("Location: login.php");
+      header("Location: login");
       exit();
     } else {
       $_SESSION['msg'] = "Error registering user.";

@@ -8,7 +8,7 @@
   <div class="profile-info">
     <label>Balance</label>
     <span style="color: #27ae60; font-weight: bold; font-size: 1.3rem;">$<?= number_format($user->getBalance(), 2) ?></span>
-    <a href="balance.php" class="btn btn-success btn-small" style="margin-left: 10px;">Add Funds $</a>
+    <a href="balance" class="btn btn-success btn-small" style="margin-left: 10px;">Add Funds $</a>
   </div>
 
   <div class="profile-info">
@@ -32,6 +32,6 @@
   </div>
 
   <br>
-  <a href="../items/shop.php" class="btn btn-primary">Continue Shopping</a>
-  <a href="../cart/orders.php" class="btn btn-success">View My Orders</a>
+  <a href="../items/shop" class="btn btn-primary">Continue Shopping</a>
+  <a href="../cart/orders" class="btn btn-success">View My Orders</a>
 </div>

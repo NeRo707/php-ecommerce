@@ -2,7 +2,7 @@
 require_once '../../app.php';
 
 if (!$auth->isLoggedIn()) {
-  header('Location: login.php');
+  header('Location: login');
   exit;
 } else {
   $uid = $auth->getUser()->getUserId();

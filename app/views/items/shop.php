@@ -5,7 +5,7 @@ require_once '../../app.php';
 // add to cart
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
   if (!$auth->isLoggedIn()) {
-    header('Location: ../auth/login.php');
+    header('Location: ../auth/login');
     exit();
   }
 
@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
   $quantity = isset($_POST['quantity']) ? $_POST['quantity'] : 1;
 
   $cart->addToCart($item_id, $quantity);
-  header('Location: shop.php');
+  header('Location: shop');
   exit();
 }
 
@@ -52,7 +52,7 @@ include_once '../_partials/header.php'; ?>
       <input type="text" name="search" placeholder="Search products..." value="<?= $search ?>" style="padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 0;">
       <button type="submit" style="flex:1;" class="btn btn-primary">Search</button>
       <?php if (!empty($search)): ?>
-        <a href="shop.php" class="btn btn-danger" style="margin: 0;">Clear</a>
+        <a href="shop" class="btn btn-danger" style="margin: 0;">Clear</a>
       <?php endif; ?>
     </form>
 
@@ -84,7 +84,7 @@ include_once '../_partials/header.php'; ?>
                   <button type="submit" name="add_to_cart" class="btn btn-success">Add to Cart</button>
                 </form>
               <?php else: ?>
-                <a href="../auth/login.php" class="btn btn-primary">Login to Buy</a>
+                <a href="../auth/login" class="btn btn-primary">Login to Buy</a>
               <?php endif; ?>
             </div>
           </div>
