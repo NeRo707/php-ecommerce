@@ -43,7 +43,6 @@ class CartService extends Dbh {
       }
       $stmt->close();
     }
-    print_r($cart);
     return $cart;
   }
 
