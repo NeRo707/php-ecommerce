@@ -5,6 +5,13 @@ $base = "/uni/app/views/";
 $isLoggedIn = $auth->isLoggedIn();
 $cartCount = $cart->getCartCount();
 $isAdmin = $isLoggedIn && $auth->getUser()->getRole() === 'admin';
+
+/* Debug
+  echo '<pre>';
+  print_r($_SESSION);
+  echo '</pre>';
+*/
+
 ?>
 
 <nav>
