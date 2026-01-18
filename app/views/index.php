@@ -7,7 +7,7 @@ require_once '../app.php';
 <!DOCTYPE html>
 <html lang="en">
 
-<?php $title = "Welcome to ShopCart";
+<?php $title = "Welcome to Shop";
 include_once './_partials/header.php'; ?>
 
 <body>
