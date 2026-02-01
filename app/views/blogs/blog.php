@@ -1,8 +1,8 @@
 <?php
-require_once '../../app.php';
+require_once __DIR__ . '/../../app.php';
 
 if (!$auth->isLoggedIn()) {
-  header('Location: login.php');
+  header('Location: /uni/app/public/login');
   exit;
 } else {
   $bid = $_GET['id'];
@@ -16,12 +16,12 @@ if (!$auth->isLoggedIn()) {
 <html lang="en">
 
 <?php $title = "Blogs";
-include_once '../_partials/header.php'; ?>
+include_once __DIR__ . '/../_partials/header.php'; ?>
 
 <body>
-  <?php include_once '../_partials/navbar.php'; ?>
+  <?php include_once __DIR__ . '/../_partials/navbar.php'; ?>
   <h1>Blogs Page</h1>
-  <a href="blogs.php">Back to Blogs</a>
+  <a href="/uni/app/public/blogs">Back to Blogs</a>
 
   <?php
   if (!empty($blog)):

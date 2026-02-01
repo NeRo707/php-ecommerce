@@ -6,14 +6,16 @@ class User {
     private string $lastname;
     private string $username;
     private string $tel;
+    private ?string $image;
     private ?string $password;
 
-    public function __construct(?int $userId, string $Name, string $Lastname, string $Username, string $Tel, ?string $password = null) {
+    public function __construct(?int $userId, string $Name, string $Lastname, string $Username, string $Tel, ?string $Image = null, ?string $password = null) {
         $this->user_id = $userId;
         $this->name = $Name;
         $this->lastname = $Lastname;
         $this->username = $Username;
         $this->tel = $Tel;
+        $this->image = $Image;
         $this->password = $password;
     }
 
@@ -37,6 +39,10 @@ class User {
         return $this->tel;
     }
 
+    public function getImage(): ?string {
+        return $this->image;
+    }
+
     public function getpassword(): ?string {
         return $this->password;
     }
@@ -55,6 +61,10 @@ class User {
 
     public function setTel(string $tel): void {
         $this->tel = $tel;
+    }
+
+    public function setImage(?string $image): void {
+        $this->image = $image;
     }
 
     public function setpassword(string $password): void {

@@ -16,26 +16,26 @@ $routes = [
   ],
   "logout" => [
     "label" => "Logout",
-    "path"  => "auth/login?action=logout",
+    "path"  => "login?action=logout",
     "auth"  => true
   ],
   "login" => [
     "label" => "Login",
-    "path"  => "auth/login",
+    "path"  => "login",
     "auth"  => false
   ],
   "register" => [
     "label" => "Register",
-    "path" => "auth/register",
+    "path" => "register",
     "auth" => false
   ],
   "blogs" => [
     "label" => "Blogs",
-    "path" => "blogs/blogs",
+    "path" => "blogs",
     "auth" => true
   ]
 ];
-$base = "/uni/app/views/";
+$base = "/uni/app/public/";
 $isLoggedIn = $auth->isLoggedIn();
 ?>
 

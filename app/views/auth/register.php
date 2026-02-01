@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../app.php';
+require_once __DIR__ . '/../../app.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
   $auth->register();
@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 <!DOCTYPE html>
 <html lang="en">
 
-<?php $title="Register"; include_once '../_partials/header.php'; ?>
+<?php $title="Register"; include_once __DIR__ . '/../_partials/header.php'; ?>
 
 <body>
 
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     if (!empty($message)) echo "<p>" . $message . "</p>";
   ?>
 
-  <?php include_once '../_partials/navbar.php'; ?>
+  <?php include_once __DIR__ . '/../_partials/navbar.php'; ?>
 
   <form action="" method="post">
     <input type="text" name="name" placeholder="Name">

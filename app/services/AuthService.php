@@ -53,7 +53,7 @@ class AuthService extends Dbh {
   }
 
   public function get_user($username) {
-    $query = "SELECT name, lastname, username, tel, user_id FROM users WHERE username = ?";
+    $query = "SELECT name, lastname, username, tel, image, user_id FROM users WHERE username = ?";
     $stmt = $this->connection->prepare($query);
     $stmt->bind_param("s", $username);
     $stmt->execute();
@@ -79,6 +79,15 @@ class AuthService extends Dbh {
     $query = "UPDATE users SET name = ?, lastname = ?, username = ?, tel = ? WHERE user_id = ?";
     $stmt = $this->connection->prepare($query);
     $stmt->bind_param("ssssi", $newName, $newLastName, $newUserName, $newTel, $user_id);
+    $result = $stmt->execute();
+    $stmt->close();
+    return $result;
+  }
+
+  public function upload_image($user_id, $imagePath) {
+    $query = "UPDATE users SET image = ? WHERE user_id = ?";
+    $stmt = $this->connection->prepare($query);
+    $stmt->bind_param("si", $imagePath, $user_id);
     $result = $stmt->execute();
     $stmt->close();
     return $result;

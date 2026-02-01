@@ -1,8 +1,8 @@
 <?php
-require_once '../../app.php';
+require_once __DIR__ . '/../../app.php';
 
 if (!$auth->isLoggedIn()) {
-  header('Location: login.php');
+  header('Location: /uni/app/public/login');
   exit;
 } else {
   $uid = $auth->getUser()->getUserId();
@@ -16,7 +16,7 @@ if (!$auth->isLoggedIn()) {
 <html lang="en">
 
 <?php $title = "Blogs";
-include_once '../_partials/header.php'; ?>
+include_once __DIR__ . '/../_partials/header.php'; ?>
 
 <style>
   .blog-post {
@@ -35,15 +35,15 @@ include_once '../_partials/header.php'; ?>
 </style>
 
 <body>
-  <?php include_once '../_partials/navbar.php'; ?>
+  <?php include_once __DIR__ . '/../_partials/navbar.php'; ?>
   <h1>Blogs Page</h1>
-  <a href="new.php">Create New Blog</a>
+  <a href="/uni/app/public/blogs/new">Create New Blog</a>
 
   <?php
   if (!empty($blogs)):
     foreach ($blogs as $blog):
   ?>
-      <a style="text-decoration: none;" href="blog.php?id=<?= $blog->getPostId() ?>">
+      <a style="text-decoration: none;" href="/uni/app/public/blog?id=<?= $blog->getPostId() ?>">
         <div class="blog-post">
           <h2 style="color:green;"><?= $blog->getTitle() ?></h2>
           <p><?= $blog->getContent() ?></p>

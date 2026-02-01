@@ -1,6 +1,6 @@
 <?php
 
-require_once '../app.php';
+require_once __DIR__ . '/../app.php';
 
 ?>
 
@@ -8,10 +8,11 @@ require_once '../app.php';
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Homepage</title>
-  <link rel="stylesheet" href="stylez.css">
+  <base href="/uni/app/public/">
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-  <?php include_once './_partials/navbar.php'; ?>
-  <h1 style="font-size: 200px;">Homepage</h1>
+  <?php include_once __DIR__ . '/_partials/navbar.php'; ?>
+  <h1 style="font-size: 200px;">Homepage123</h1>
 </body>

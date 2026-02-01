@@ -38,7 +38,8 @@ class AuthController {
         $userData['name'],
         $userData['lastname'],
         $userData['username'],
-        $userData['tel']
+        $userData['tel'],
+        $userData['image'],
       );
       $_SESSION['user'] = $this->user;
 
@@ -143,6 +144,59 @@ class AuthController {
       return true;
     } else {
       $_SESSION['msg'] = "Error updating name.";
+      return false;
+    }
+  }
+
+  public function uploadProfileImage($user_id, $file) {
+    if ($file['error'] !== UPLOAD_ERR_OK) {
+      $_SESSION['msg'] = "File upload error.";
+      return false;
+    }
+
+    $targetDir = __DIR__ . '/../uploads/';
+    if (!is_dir($targetDir)) {
+      echo "No Dir at " . $targetDir;
+    }
+
+    $allowedExtensions = ['jpg', 'jpeg', 'png'];
+
+    $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
+
+    if( !in_array(strtolower($fileExtension), $allowedExtensions) ) {
+      $_SESSION['msg'] = "<p style=\"color: red\">Invalid file type. Only JPG, JPEG, and PNG are allowed.</p>";
+      return false;
+    }
+
+    echo "File Extension: " . $fileExtension;
+
+    $fileSize = $file['size'];
+    if ($fileSize > 2 * 1024 * 1024) {
+      $_SESSION['msg'] = "File size exceeds 2MB limit.";
+      return false;
+    }
+
+    $fileName = basename($file['name']);
+    $targetFilePath = $targetDir . $fileName;
+
+    if (move_uploaded_file($file['tmp_name'], $targetFilePath)) {
+      $relativePath = '/uni/app/uploads/' . $fileName;
+      $isUpdated = $this->authService->upload_image($user_id, $relativePath);
+
+      if ($isUpdated) {
+        $_SESSION['msg'] = "Profile image updated successfully.";
+        // Update session user data
+        if ($this->user) {
+          $this->user->setImage($relativePath);
+          $_SESSION['user'] = $this->user;
+        }
+        return true;
+      } else {
+        $_SESSION['msg'] = "Error updating profile image in database.";
+        return false;
+      }
+    } else {
+      $_SESSION['msg'] = "Error moving uploaded file.";
       return false;
     }
   }

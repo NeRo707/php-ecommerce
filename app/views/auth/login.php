@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../app.php';
+require_once __DIR__ . '/../../app.php';
 
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {
   $auth->logout();
@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 $isLoggedIn = $auth->isLoggedIn();
 
 if ($isLoggedIn) {
-  header('Location: ../user/profile.php');
+  header('Location: /uni/app/public/user/profile');
   exit();
 }
 
@@ -23,10 +23,10 @@ if ($isLoggedIn) {
 <!DOCTYPE html>
 <html lang="en">
 
-<?php $title="Login"; include_once '../_partials/header.php'; ?>
+<?php $title="Login"; include_once __DIR__ . '/../_partials/header.php'; ?>
 
 <body>
-  <?php include_once '../_partials/navbar.php'; ?>
+  <?php include_once __DIR__ . '/../_partials/navbar.php'; ?>
   <main>
     <p style="color: red;"><?= $auth->getMessage() ?></p>
 

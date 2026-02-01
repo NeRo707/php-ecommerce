@@ -1,22 +1,22 @@
 <?php
 
-require_once '../../app.php';
+require_once __DIR__ . '/../../app.php';
 
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {
   $auth->logout();
-  header('Location: login.php');
+  header('Location: /uni/app/public/login');
   exit();
 }
 
 $isLoggedIn = $auth->isLoggedIn();
 if (!$isLoggedIn) {
-  header('Location: login.php');
+  header('Location: /uni/app/public/login');
   exit();
 }
 $user = $auth->getUser();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
-  
+
   $newUserName = trim($_POST['newusername']);
   $newName = trim($_POST['newname']);
   $newLastName = trim($_POST['newlastname']);
@@ -49,19 +49,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
     $_SESSION['msg'] = "All fields are required.";
   }
 }
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'])) {
+  $uploadResult = $auth->uploadProfileImage($user->getUserId(), $_FILES['image']);
+  if ($uploadResult) {
+    $user = $auth->getUser();
+    header("Location: " . '/uni/app/public/user/profile');
+    exit();
+  }
+}
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <?php $title = "Profile";
-include_once '../_partials/header.php'; ?>
+include_once __DIR__ . '/../_partials/header.php'; ?>
 
 <body>
-  <?php include_once '../_partials/navbar.php'; ?>
+  <?php include_once __DIR__ . '/../_partials/navbar.php'; ?>
   <?= $auth->getMessage() ?>
   <div class="profile-card">
     <h2>Welcome, <?= $user->getUsername() ?></h2>
+
+    <form action="" method="POST" enctype="multipart/form-data">
+      <img onclick="document.getElementById('fileInput').click()" src="<?= $user->getImage() ?>" alt="User Image" id="file" width="100">
+      <input type="file" id="fileInput" style="display: none;" name="image" onchange="this.form.submit()">
+    </form>
+
+
     <div class="info">
       <div><strong>Nasdasame:</strong> <?= $user->getName() ?></div>
       <div><strong>Last Name:</strong> <?= $user->getLastname() ?></div>

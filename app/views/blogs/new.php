@@ -1,14 +1,14 @@
 <?php
-require_once '../../app.php';
+require_once __DIR__ . '/../../app.php';
 if (!$auth->isLoggedIn()) {
-    header('Location: login.php');
+    header('Location: /uni/app/public/login');
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = $blogs->createBlog();
     if ($result) {
-        header('Location: blogs.php');
+        header('Location: /uni/app/public/blogs');
         exit;
     } else {
         echo "<p style='color:red;'>Failed to create blog. Please try again.</p>";
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!DOCTYPE html>
 <html lang="en">
 
-<?php $title="New Blog"; include_once '../_partials/header.php'; ?>
+<?php $title="New Blog"; include_once __DIR__ . '/../_partials/header.php'; ?>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </style>
 
 <body>
-    <?php include_once '../_partials/navbar.php'; ?>
+    <?php include_once __DIR__ . '/../_partials/navbar.php'; ?>
     <h1>Create new Blog</h1>
 
     <form action="" method="post">
