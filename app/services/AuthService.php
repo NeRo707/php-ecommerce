@@ -8,6 +8,10 @@ class AuthService extends Dbh {
     $query = "INSERT INTO users (name, lastname, username, tel, password) VALUES (?, ?, ?, ?, ?)";
     $stmt = $this->connection->prepare($query);
 
+    echo "<pre>";
+    var_dump($user);
+    echo "</pre>";
+
     $name = $user->getName();
     $lastname = $user->getLastname();
     $username = $user->getUsername();

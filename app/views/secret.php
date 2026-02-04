@@ -5,6 +5,13 @@ if (!$auth->isLoggedIn()) {
   exit;
 }
 
+
+$a = fopen('sigma.txt', 'r');
+$text = fread($a, filesize('sigma.txt'));
+echo $text;
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +27,7 @@ if (!$auth->isLoggedIn()) {
 <body>
   <?php include_once __DIR__ . '/_partials/navbar.php'; ?>
   <h1>secret page</h1>
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=W-ikt4_2sb-5byro" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+
 </body>
 
 </html>

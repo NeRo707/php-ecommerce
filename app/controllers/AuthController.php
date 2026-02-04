@@ -89,7 +89,8 @@ class AuthController {
       $_POST['lastname'],
       $_POST['username'],
       $_POST['tel'],
-      password_hash($_POST['password'], PASSWORD_DEFAULT)
+      password_hash($_POST['password'], PASSWORD_DEFAULT),
+      null
     );
 
     try {
@@ -171,8 +172,9 @@ class AuthController {
     echo "File Extension: " . $fileExtension;
 
     $fileSize = $file['size'];
-    if ($fileSize > 2 * 1024 * 1024) {
-      $_SESSION['msg'] = "File size exceeds 2MB limit.";
+    $maxSize = 5 * 1024 * 1024;
+    if ($fileSize > $maxSize) {
+      $_SESSION['msg'] = "File size exceeds " . ($maxSize / 1024 / 1024) ." MB limit.";
       return false;
     }
 
