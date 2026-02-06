@@ -86,6 +86,8 @@ $filtered = array_filter($data, fn($st) => $st['speciality'] == 'Developer');
         </thead>
         <tbody>
             <?php foreach ($filtered as $person): ?>
+
+              
                 <tr>
                     <td><?= $person['name']; ?></td>
                     <td><?= $person['surname']; ?></td>
