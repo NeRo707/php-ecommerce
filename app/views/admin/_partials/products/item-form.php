@@ -15,14 +15,14 @@
   </div>
 
   <div class="form-row">
-    <div class="form-group">
+    <div class="form-groupx">
       <label for="price">Price ($)</label>
       <input type="number" id="price" name="price" step="0.01" min="0.01" required placeholder="0.00"
         value="<?= $editingItem ? $editingItem->getPrice() : '' ?>">
     </div>
 
-    <div class="form-group">
-      <label for="stock">Stock Quantity</label>
+    <div class="form-groupx">
+      <label for="stock">Stock </label>
       <input type="number" id="stock" name="stock" min="0" required placeholder="0"
         value="<?= $editingItem ? $editingItem->getStock() : '' ?>">
     </div>

@@ -75,7 +75,7 @@ include_once '../_partials/header.php'; ?>
       </div>
 
       <form method="POST" class="hack-form">
-        <button type="submit" name="hack" class="hack-btn">
+        <button type="submit" name="hack" class="btn">
           <span class="hack-btn-text">START HACK</span>
           <span class="hack-btn-sub">Get Money from Pentagon</span>
         </button>
