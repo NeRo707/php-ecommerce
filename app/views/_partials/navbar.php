@@ -1,56 +1,37 @@
 <?php
-$routes = [
-  "secret" => [
-    "label" => "Secret",
-    "path" => "secret",
-    "auth" => true
-  ],
-  "home" => [
-    "label" => "Home",
-    "path"  => "",
-  ],
-  "profile" => [
-    "label" => "Profile",
-    "path"  => "user/profile",
-    "auth"  => true
-  ],
-  "logout" => [
-    "label" => "Logout",
-    "path"  => "auth/login?action=logout",
-    "auth"  => true
-  ],
-  "login" => [
-    "label" => "Login",
-    "path"  => "auth/login",
-    "auth"  => false
-  ],
-  "register" => [
-    "label" => "Register",
-    "path" => "auth/register",
-    "auth" => false
-  ],
-  "blogs" => [
-    "label" => "Blogs",
-    "path" => "blogs/blogs",
-    "auth" => true
-  ]
-];
+require_once __DIR__ . '/routes.php';
+
 $base = "/uni/app/views/";
 $isLoggedIn = $auth->isLoggedIn();
+$cartCount = $cart->getCartCount();
+$isAdmin = $isLoggedIn && $auth->getUser()->getRole() === 'admin';
+
+/* Debug
+  echo '<pre>';
+  print_r($_SESSION);
+  echo '</pre>';
+*/
+
 ?>
 
 <nav>
-  <?php foreach ($routes as $route): ?>
+  <a href="<?= $base ?>" class="nav-brand">🛒 ScamShop</a>
+  <div>
+    <?php foreach ($routes as $key => $route): ?>
+      <?php
+      if (isset($route['admin']) && $route['admin'] && !$isAdmin) continue;
 
-    <?php
-    if (isset($route['auth'])) {
-      if ($route['auth'] && !$isLoggedIn) continue;
-      if (!$route['auth'] && $isLoggedIn) continue;
-    }
-    ?>
-
-    <a href="<?= $base . $route['path'] ?>">
-      <?= htmlspecialchars($route['label']) ?>
-    </a>
-  <?php endforeach; ?>
+      if (isset($route['auth'])) {
+        if ($route['auth'] && !$isLoggedIn) continue;
+        if (!$route['auth'] && $isLoggedIn) continue;
+      }
+      ?>
+      <a href="<?= $base . $route['path'] ?>">
+        <?= $route['label'] ?>
+        <?php if ($key === 'cart' && $cartCount > 0): ?>
+          <span class="cart-badge"><?= $cartCount ?></span>
+        <?php endif; ?>
+      </a>
+    <?php endforeach; ?>
+  </div>
 </nav>

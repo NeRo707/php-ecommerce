@@ -1,0 +1,397 @@
+/* ScamShop Custom Styles */
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f7f7fa;
+  color: #222;
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  background: #222;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  justify-content: space-between;
+}
+.nav-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+}
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+nav a:hover, nav a.active {
+  background: #3498db;
+}
+.cart-badge {
+  background: #e74c3c;
+  color: #fff;
+  border-radius: 50%;
+  padding: 0.2em 0.6em;
+  font-size: 0.9em;
+  margin-left: 0.3em;
+}
+
+.page-title {
+  font-size: 2rem;
+  margin: 2rem 0 1rem 0;
+  text-align: center;
+  color: #3498db;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  margin: 0.2rem 0.5rem;
+  transition: background 0.2s, color 0.2s;
+}
+.btn-primary {
+  background: #3498db;
+  color: #fff;
+}
+.btn-primary:hover {
+  background: #217dbb;
+}
+.btn-success {
+  background: #27ae60;
+  color: #fff;
+}
+.btn-success:hover {
+  background: #219150;
+}
+.btn-danger {
+  background: #e74c3c;
+  color: #fff;
+}
+.btn-danger:hover {
+  background: #c0392b;
+}
+.btn-secondary {
+  background: #95a5a6;
+  color: #fff;
+}
+.btn-secondary:hover {
+  background: #7f8c8d;
+}
+.btn-small {
+  padding: 0.3rem 0.7rem;
+  font-size: 0.9rem;
+}
+
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.response {
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  text-align: center;
+}
+.response.success {
+  background: #d4efdf;
+  color: #27ae60;
+}
+.response.error {
+  background: #f9e0e0;
+  color: #e74c3c;
+}
+
+.profile-card, .admin-form, .balance-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+.profile-info {
+  margin-bottom: 1rem;
+}
+.profile-info label {
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+.profile-info span {
+  font-size: 1.1rem;
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+}
+.cart-table th, .cart-table td {
+  padding: 0.7rem;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+.cart-table th {
+  background: #3498db;
+  color: #fff;
+}
+.cart-table tr:nth-child(even) {
+  background: #f7f7fa;
+}
+
+.cart-empty {
+  text-align: center;
+  color: #aaa;
+  margin: 2rem 0;
+}
+
+.cart-total {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #27ae60;
+  text-align: right;
+  margin-top: 1rem;
+}
+
+.orders-list {
+  margin-top: 2rem;
+}
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.order-status {
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-groupx {
+  width: 12rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0rem !important;
+  gap: 0.5rem;
+}
+
+.form-groupx input {
+  margin-bottom: 0rem !important;
+}
+
+
+.order-status.pending {
+  background: #f9e79f;
+  color: #b9770e;
+}
+.order-status.completed {
+  background: #d4efdf;
+  color: #27ae60;
+}
+.order-status.cancelled {
+  background: #f9e0e0;
+  color: #e74c3c;
+}
+
+.status-select {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.product-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.product-image img {
+  max-width: 120px;
+  max-height: 120px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+.product-info {
+  text-align: center;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.admin-tab {
+  padding: 0.7rem 1.5rem;
+  border-radius: 4px;
+  background: #eee;
+  color: #222;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+.admin-tab.active {
+  background: #3498db;
+  color: #fff;
+}
+.admin-tab:hover {
+  background: #95a5a6;
+  color: #fff;
+}
+
+.admin-section {
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  display: inline-block;
+  padding: 1rem 2rem;
+  border-radius: 6px;
+  margin: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: #eee;
+  color: #222;
+}
+.stat-pending {
+  background: #f9e79f;
+  color: #b9770e;
+}
+.stat-completed {
+  background: #d4efdf;
+  color: #27ae60;
+}
+.stat-cancelled {
+  background: #f9e0e0;
+  color: #e74c3c;
+}
+.stat-total {
+  background: #3498db;
+  color: #fff;
+}
+
+.balance-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.balance-label {
+  font-size: 1.1rem;
+  color: #888;
+}
+.balance-amount {
+  font-size: 2rem;
+  color: #27ae60;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.hack-section {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 2rem;
+  margin-top: 2rem;
+  text-align: center;
+}
+.hack-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.pentagon-icon {
+  font-size: 2rem;
+}
+.hack-result {
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+.hack-result.success {
+  background: #d4efdf;
+  color: #27ae60;
+}
+.hack-result.failed {
+  background: #f9e0e0;
+  color: #e74c3c;
+}
+
+.hack-status {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #34db74;
+}
+
+input, textarea {
+  padding: 0.7rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+input[type="number"] {
+  width: 120px;
+}
+input[type="submit"], button[type="submit"] {
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  main {
+    padding: 1rem 0.2rem;
+  }
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .profile-card, .admin-form, .balance-card, .hack-section {
+    padding: 1rem;
+  }
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+}

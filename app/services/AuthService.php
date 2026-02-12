@@ -4,21 +4,20 @@ require_once __DIR__ . '/../core/db.php';
 class AuthService extends Dbh {
 
   public function add_user($user) {
-
-    $query = "INSERT INTO users (name, lastname, username, tel, password) VALUES (?, ?, ?, ?, ?)";
+    $query = "INSERT INTO users (name, lastname, username, email, password) VALUES (?, ?, ?, ?, ?)";
     $stmt = $this->connection->prepare($query);
 
     $name = $user->getName();
     $lastname = $user->getLastname();
     $username = $user->getUsername();
-    $tel = $user->getTel();
-    $password = $user->getpassword();
+    $email = $user->getEmail();
+    $password = $user->getPassword();
 
-    if (empty($name) || empty($lastname) || empty($username) || empty($password)) {
-      throw new Exception("service: All fields are required.");
+    if (empty($name) || empty($lastname) || empty($username) || empty($email) || empty($password)) {
+      throw new Exception("All fields are required.");
     }
 
-    $stmt->bind_param("sssss", $name, $lastname, $username, $tel, $password);
+    $stmt->bind_param("sssss", $name, $lastname, $username, $email, $password);
 
     $existingUser = $this->get_user($username);
     if ($existingUser) {
@@ -41,7 +40,6 @@ class AuthService extends Dbh {
       $user = $result->fetch_assoc();
       $hashedPassword = $user['password'];
 
-      // Verify the password against the hash stored in database
       if (password_verify($password, $hashedPassword)) {
         $stmt->close();
         return true;
@@ -52,10 +50,32 @@ class AuthService extends Dbh {
     return false;
   }
 
-  public function get_user($username) {
-    $query = "SELECT name, lastname, username, tel, user_id FROM users WHERE username = ?";
+  public function get_user($username, $email = null) {
+    $query = "SELECT 
+              user_id, role, name, lastname, username, email, balance 
+              FROM users 
+              WHERE username = ? OR email = ?";
+    
     $stmt = $this->connection->prepare($query);
-    $stmt->bind_param("s", $username);
+    $emailParam = $email ?? $username;
+    $stmt->bind_param("ss", $username, $emailParam);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+      $user = $result->fetch_assoc();
+      $stmt->close();
+      return $user;
+    }
+
+    $stmt->close();
+    return null;
+  }
+
+  public function get_user_by_id($user_id) {
+    $query = "SELECT user_id, role, name, lastname, username, email, balance FROM users WHERE user_id = ?";
+    $stmt = $this->connection->prepare($query);
+    $stmt->bind_param("i", $user_id);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -70,17 +90,45 @@ class AuthService extends Dbh {
   }
 
   public function update_user($user_id, $newData) {
-
     $newName = $newData['name'];
     $newLastName = $newData['lastname'];
     $newUserName = $newData['username'];
-    $newTel = $newData['tel'];
+    $newEmail = $newData['email'];
 
-    $query = "UPDATE users SET name = ?, lastname = ?, username = ?, tel = ? WHERE user_id = ?";
+    $query = "UPDATE users SET name = ?, lastname = ?, username = ?, email = ? WHERE user_id = ?";
     $stmt = $this->connection->prepare($query);
-    $stmt->bind_param("ssssi", $newName, $newLastName, $newUserName, $newTel, $user_id);
+    $stmt->bind_param("ssssi", $newName, $newLastName, $newUserName, $newEmail, $user_id);
     $result = $stmt->execute();
     $stmt->close();
     return $result;
+  }
+
+  public function add_balance($user_id, $amount) {
+    $query = "UPDATE users SET balance = balance + ? WHERE user_id = ?";
+    $stmt = $this->connection->prepare($query);
+    $stmt->bind_param("di", $amount, $user_id);
+    $result = $stmt->execute();
+    $stmt->close();
+    return $result;
+  }
+
+  public function deduct_balance($user_id, $amount) {
+    $query = "UPDATE users SET balance = balance - ? WHERE user_id = ? AND balance >= ?";
+    $stmt = $this->connection->prepare($query);
+    $stmt->bind_param("did", $amount, $user_id, $amount);
+    $result = $stmt->execute();
+    $stmt->close();
+    return $result && $this->connection->affected_rows > 0;
+  }
+
+  public function get_balance($user_id) {
+    $query = "SELECT balance FROM users WHERE user_id = ?";
+    $stmt = $this->connection->prepare($query);
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $stmt->close();
+    return $row ? $row['balance'] : 0;
   }
 }

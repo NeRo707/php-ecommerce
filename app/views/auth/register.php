@@ -6,31 +6,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
   $auth->register();
 }
 
+$isLoggedIn = $auth->isLoggedIn();
+
+if ($isLoggedIn) {
+  header('Location: ../user/profile');
+  exit();
+}
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
-<?php $title="Register"; include_once '../_partials/header.php'; ?>
+<?php $title = "Register";
+include_once '../_partials/header.php'; ?>
 
 <body>
-
-  <?php 
-    $message = $auth->getMessage();
-    if (!empty($message)) echo "<p>" . $message . "</p>";
-  ?>
-
   <?php include_once '../_partials/navbar.php'; ?>
 
-  <form action="" method="post">
-    <input type="text" name="name" placeholder="Name">
-    <input type="text" name="lastname" placeholder="Lastname">
-    <input type="text" name="username" placeholder="Username" required>
-    <input type="text" name="tel" placeholder="Telephone">
-    <input type="password" name="password" placeholder="password" required>
-    <button type="submit" name="register">Register</button>
-  </form>
+  <main>
+    <?php
+    $response = $auth->getResponse();
+    if (!empty($response)):
+    ?>
+      <div class="response error">
+        <?= $response ?>
+      </div>
+    <?php endif; ?>
 
+    <form action="" method="post">
+      <h2>Register</h2>
+      <input type="text" name="name" placeholder="First Name" required>
+      <input type="text" name="lastname" placeholder="Last Name" required>
+      <input type="text" name="username" placeholder="Username" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <button type="submit" name="register">Register</button>
+      <p style="text-align: center; margin-top: 15px;">
+        Already have an account? <a href="login">Login</a>
+      </p>
+    </form>
+  </main>
 </body>
 
 </html>
